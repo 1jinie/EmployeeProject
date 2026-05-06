@@ -3,10 +3,7 @@ package service;
 import exception.EmployeeException;
 import vo.EmployeeVO;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class EmployeeService {
@@ -40,6 +37,16 @@ public class EmployeeService {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void exportToCSV() {
+        try(FileWriter fw = new FileWriter("Employee.csv");
+            PrintWriter pw = new PrintWriter(fw)){
+            list.forEach(item -> pw.println(item.toString()));
+            System.out.println("사원정보 저장 완료");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
