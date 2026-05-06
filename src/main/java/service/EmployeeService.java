@@ -1,5 +1,6 @@
 package service;
 
+import exception.EmployeeException;
 import vo.EmployeeVO;
 
 import java.io.BufferedReader;
@@ -46,5 +47,17 @@ public class EmployeeService {
         if(instance == null)
             instance = new EmployeeService();
         return instance;
+    }
+
+    public void checkDuplicateEmployeeID(String id) throws EmployeeException {
+        int idx = list.indexOf(new EmployeeVO(id, null, null, 0, null));
+        
+        if(idx != -1)
+            throw new EmployeeException("사원번호 중복됨");
+
+    }
+
+    public boolean appendEmployee(EmployeeVO employeeVO) {
+        return list.add(employeeVO);
     }
 }
